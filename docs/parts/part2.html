@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Add a root view controller to the Tip Calculator app</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>IOS101 Intro to Xamarin.iOS</header>
+
+    <section id="main">
+        <h2>Exercise 2: Add a root view controller to the Tip Calculator app</h2>
+<p>The primary goal of this lab is to disable the default Storyboard UI from the TipCalculator project you created in the previous exercise and replace it with a code-based <code>UIViewController</code> which will be set as the <code>RootViewController</code> for the application.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 1 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+<hr>
+<h2>Remove boilerplate code</h2>
+<p>The Single View App template created both a Storyboard UI and a View Controller with some basic overrides that are linked to the UI. We want to start from scratch in this app so in this step, we will delete the existing View Controller code and replace it with a new C# class to act as our primary view controller.</p>
+<ol>
+<li>Open your <strong>TipCalculator</strong> solution.</li>
+<li>Locate <strong>ViewController.cs</strong>. </li>
+</ol>
+<ide name="vs">
+<ol start="3">
+<li><strong>Right-click</strong> on it and select <strong>Delete</strong>. </li>
+</ol>
+<figure class="figure">
+<img src="./images/ios101-ex2-vs-remove-file.png" alt="image" />
+</figure>
+</ide>
+<ide name="xs">
+<ol start="3">
+<li><strong>Right-click</strong> on it (or select the gear icon next to it when it is highlighted) and select <strong>Remove</strong>. You can safely delete this file.  </li>
+</ol>
+<figure class="figure">
+<img src="./images/lab2-xs-remove-file.png" alt="image" />
+</figure>
+</ide>
+
+<hr>
+<h2>Add a new class</h2>
+<ide name="vs">
+<ol>
+<li><strong>Add a new file</strong> to the project using either <strong>Project &#10148; Add Class</strong> from the menu, or use <strong>Add &#10148; Class</strong> from the project context menu.</li>
+<li>Choose the <strong>Empty Class</strong> template from the <strong>Apple</strong> category and name the file <strong>MyViewController</strong>, and click &quot;<strong>Add</strong>&quot; to create the file and add it to your project.</li>
+</ol>
+<figure class="figure">
+<img src="./images/ios101-ex2-vs-new-class.png" alt="image" />
+</figure>
+</ide>
+<ide name="xs">
+<ol>
+<li>Add a new file to the project using either <strong>File &#10148; New &#10148; File...</strong> from the menu, or use <strong>Add &#10148; New File</strong> from the <em>project context menu</em>.</li>
+<li>Choose <strong>Empty Class</strong> from the <strong>General</strong> category and name the file <strong>MyViewController</strong>; Make sure that <strong>Add to project</strong> is selected and click <strong>New</strong> to create the file.</li>
+</ol>
+<figure class="figure">
+<img src="./images/new-file.png" alt="image" />
+</figure>
+</ide>
+
+<hr>
+<h2>Derive from UIViewController</h2>
+<ol>
+<li>Open the new source file (the IDE should open it automatically) and update the class to derive from <code>UIViewController</code>. You will need to fully-qualify the class or add the UIKit namespace to your using statements at the top of the file.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System;
+<mark>using UIKit;</mark>
+
+namespace TipCalculator
+{
+    public class MyViewController : <mark>UIViewController</mark>
+    {
+        public MyViewController()
+        {
+        }
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Assign a window</h2>
+<ol>
+<li>Open <strong>AppDelegate.cs</strong>.</li>
+<li>Locate the <code>FinishedLaunching</code> method and remove <strong>all</strong> of the code and comments from within the method.</li>
+<li>Create a new <code>UIWindow</code> object and assign it. The constructor for <code>UIWindow</code> takes a <code>CGRect</code> which defines the rectangle that the window will cover. We want it to cover the entire device screen, so use the static property <code>UIScreen.MainScreen.Bounds</code> as the parameter; this defines the entire screen size.</li>
+<li>Assign the created <code>UIWindow</code> to the existing <code>Window</code> property.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    // create a new window instance based on the screen size
+    <mark>Window = new UIWindow(UIScreen.MainScreen.Bounds);</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Display a view controller</h2>
+<ol>
+<li>Create a new instance of <code>MyViewController</code>and assign it to the <code>Window.RootViewController</code> property. This will display your View Controller (and the view it is responsible for) as the initial screen when the app starts.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    // create a new window instance based on the screen size
+    Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+    // Assign the root view controller
+    <mark>Window.RootViewController = new MyViewController();</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Set the primary window</h2>
+<ol>
+<li>We have to direct iOS to make this new window the <em>primary</em> or <em>key</em> window - to do this call the <code>MakeKeyAndVisible</code> method on the <code>UIWindow</code> object.</li>
+<li>Return <code>true</code> from the method to finish the implementation.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    // create a new window instance based on the screen size
+    Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+    // Assign the root view controller
+    Window.RootViewController = new MyViewController();
+
+    // make the window visible
+    <mark>Window.MakeKeyAndVisible();</mark>
+
+    return true;
+}
+</code></pre>
+
+
+<hr>
+<h2>Compile the application</h2>
+<ol>
+<li>Use the <strong>Build</strong> menu to compile the application and <em>correct any compile errors</em>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/build-menu.png" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>Congratulations! In this exercise you replaced the default view controller with a code-based <code>UIViewController</code> and set as the <code>RootViewController</code> for the application.</p>
+<p>You can view the completed solution in the <strong>Exercise 2 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

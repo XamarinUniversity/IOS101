@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Create the UI for a Tip Calculator</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>IOS101 Intro to Xamarin.iOS</header>
+
+    <section id="main">
+        <h2>Exercise 3: Create the UI for a Tip Calculator</h2>
+<p>In this exercise, we will be adding three controls to our screen: a <code>UITextField</code>, a <code>UIButton</code> and a <code>UILabel</code> to complete the UI for a simple Tip Calculator.</p>
+<figure class="figure">
+<img src="./images/ex3-complete.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 2 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+<hr>
+<h2>Override ViewDidLoad</h2>
+<p>In this section, we will add the controls to our UI to create the GUI for the Tip Calculator. You can use Visual Studio on macOS or Windows - the instructions are identical for both.</p>
+<ol>
+<li>Open the <strong>MyViewController.cs</strong> source file. </li>
+<li>Override the <code>ViewDidLoad</code> method.</li>
+<li>Call the base implementation.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+}
+</code></pre>
+
+
+<hr>
+<h2>Set the background color</h2>
+<ol>
+<li>Set the <code>BackgroundColor</code> property for the View to <strong>Yellow</strong>. You can use the <code>UIColor.Yellow</code> constant as your color value or specify an <strong>RGB</strong> value.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    <mark>this.View.BackgroundColor = UIColor.Yellow;</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Create a text field</h2>
+<ol>
+<li>Locate the <code>ViewDidLoad</code> method.</li>
+<li>Create a <code>UITextField</code> variable named <strong>totalAmount</strong>.</li>
+<li>
+<p>Set the text field's <strong>Frame</strong> property.</p>
+<p>Calculate the frame using the diagram below - it should be <strong>20pts from the left and right</strong> edges of the screen, <strong>28pts from the top</strong> and be <strong>35pts high</strong> (the width is based on the screen). You will need to use the <code>View.Bounds.Width</code> to stretch this across the view. You can either pass the calculated <code>CGRect</code> into the constructor, or set the <code>Frame</code> property.</p>
+<blockquote>
+Note: <code>CGRect</code> is found in the <code>CoreGraphics</code> namespace.
+</blockquote>
+</li>
+</ol>
+<figure class="figure">
+<img src="images/lab4-spacing.png" alt="image" />
+</figure>
+<pre class="prettyprint-collapse"><code><mark>using CoreGraphics;</mark>
+
+public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    <mark>var totalAmount = new UITextField() {</mark>
+    <mark>    Frame = new CGRect(20, 28, View.Bounds.Width - 40, 35),</mark>
+    <mark>};</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Set the text field properties</h2>
+<p>When instantiating the <code>UITextField</code> assign the following properties:</p>
+<ul>
+<li>Set the <code>KeyboardType</code> property to <code>UIKeyboardType.DecimalPad</code>.</li>
+<li>Set the <code>BorderStyle</code> property to <code>UITextBorderStyle.RoundedRect</code>.</li>
+<li>Set the <code>Placeholder</code> property to <code>&quot;Enter Total Amount&quot;</code>.</li>
+</ul>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    var totalAmount = new UITextField() 
+    {
+        Frame = new CGRect(20, 28, View.Bounds.Width - 40, 35),
+        <mark>KeyboardType = UIKeyboardType.DecimalPad,</mark>
+        <mark>BorderStyle  = UITextBorderStyle.RoundedRect,</mark>
+        <mark>Placeholder  = &quot;Enter Total Amount&quot;,</mark>
+    };
+}
+</code></pre>
+
+
+<hr>
+<h2>Create a button</h2>
+<ol>
+<li>
+Next, create a new <code>UIButton</code> variable in the <code>ViewDidLoad</code> override:
+<ul>
+<li>Name the button <code>calcButton</code>.</li>
+<li>Pass <code>UIButtonType.Custom</code> to the constructor so we can change the colors.</li>
+<li>Calculate the frame using the diagram below, like the text field, it should be <strong>20pts</strong> from the left and right edges of the screen and should be <strong>8pts</strong> below the text field. From the above diagram, it should be <strong>45pts</strong> in height. You will need to set the <code>Frame</code> property directly in order to use the constructor that takes a button type.</li>
+</ul>
+</li>
+</ol>
+<figure class="figure">
+<img src="images/lab4-spacing.png" alt="image" />
+</figure>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    <mark>var calcButton = new UIButton(UIButtonType.Custom)</mark>
+    <mark>{</mark>
+    <mark>    Frame = new CGRect(20, 71, View.Bounds.Width - 40, 45),</mark>
+    <mark>};</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Set the button properties</h2>
+<ol>
+<li>Set the <code>BackgroundColor</code> to a dark green using the <code>UIColor.FromRGB</code> static method (make the green component <strong>0.5f</strong> to make it darker)</li>
+<li>Use the <code>SetTitle</code> method to set the text to <code>&quot;Calculate&quot;</code> for the normal control state (<code>UIControlState.Normal</code>).</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    var calcButton = new UIButton(UIButtonType.Custom) {
+       Frame = new CGRect(20, 71, View.Bounds.Width - 40, 45),
+       <mark>BackgroundColor = UIColor.FromRGB(0, 0.5f, 0),</mark>
+    };
+    <mark>calcButton.SetTitle(&quot;Calculate&quot;, UIControlState.Normal);</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Create a UILabel</h2>
+<ol>
+<li>
+Create a new <code>UILabel</code> variable in the <code>ViewDidLoad</code> method: 
+<ul>
+<li>Name the label <code>resultLabel</code>.</li>
+<li>Calculate the frame using the diagram below, it should be 40pts high and have the same left and right margins as the other two controls. You can pass the frame into the constructor, or set the property.</li>
+</ul>
+</li>
+</ol>
+<figure class="figure">
+<img src="images/lab4-spacing.png" alt="image" />
+</figure>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    <mark>var resultLabel = new UILabel()</mark>
+    <mark>{</mark>
+    <mark>    Frame = new CGRect(20, 124, View.Bounds.Width - 40, 40),</mark>
+    <mark>};</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Set the label properties</h2>
+<p>Set the following property values on the label:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+	<th>Property</th>
+	<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><strong>TextColor</strong></td>
+	<td><code>UIColor.Blue</code></td>
+</tr>
+<tr>
+	<td><strong>TextAlignment</strong></td>
+	<td>to <code>UITextAlignment.Center</code> to center the text horizontally</td>
+</tr>
+<tr>
+	<td><strong>Font</strong></td>
+	<td>to <code>UIFont.SystemFontOfSize(24)</code> to increase the font size</td>
+</tr>
+<tr>
+	<td><strong>Text</strong></td>
+	<td>to &quot;Tip is $0.00&quot; to assign default text</td>
+</tr>
+</tbody>
+</table>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    var resultLabel = new UILabel() {
+        Frame = new CGRect(20, 124, View.Bounds.Width - 40, 40),
+        <mark>TextColor = UIColor.Blue,</mark>
+        <mark>TextAlignment = UITextAlignment.Center,</mark>
+        <mark>Font = UIFont.SystemFontOfSize(24),</mark>
+        <mark>Text = &quot;Tip is $0.00&quot;,</mark>
+    };
+}
+</code></pre>
+
+
+<hr>
+<h2>Display the child views</h2>
+<p>Now we need to add all the child views into our screen. You can add them individually (<code>View.Add</code> or <code>View.AddSubview</code>), or add them as an array of <code>UIView</code> objects using <code>View.AddSubviews</code>.</p>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    …
+    var totalAmount = …;
+    var calcButton = …;
+    var resultLabel = …; 
+    <mark>View.AddSubviews(totalAmount, calcButton, resultLabel);</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Build the application</h2>
+<ol>
+<li>
+<strong>Build and run the application</strong>. You should see an interactive UI, it won't have any behavior yet, but you should be able to tap in the edit field and enter values with the on-screen keyboard.
+<ul>
+<li>If you don't see the on-screen keyboard when you tap, but you see a cursor, then it's likely that the simulator is configured to use the hardware keyboard on your Mac. You can change this using the <strong>Hardware &gt; Keyboard &gt; Connect Hardware Keyboard</strong> option on the simulator menu.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+Notice that the on-screen keyboard appears automatically when you tap in the edit field, but does not dismiss when you tap the button? We'll talk about this behavior next.
+</blockquote>
+<figure class="figure">
+<img src="images/finishedApp.png" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<strong>Congratulations!</strong> In this exercise, you have added several controls to your application. The final step will be to add behavior to the tip calculator.
+<p>You can view the completed solution in the <strong>Exercise 3 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+<div>
+</div>
+<figure class="figure">
+<img src="images/ex3-complete.png" alt="tip calculator application" />
+</figure>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

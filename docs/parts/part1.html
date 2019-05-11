@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Create and run your first iOS application</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>IOS101 Intro to Xamarin.iOS</header>
+
+    <section id="main">
+        <h2>Exercise 1: Create and run your first iOS application</h2>
+<p>The primary goal of this lab is to walk through the creation of a brand new Xamarin.iOS application using Visual Studio on either macOS or Windows. We will then build and run it using the included iOS Simulator from Apple.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Create a new solution</h2>
+<p>In this section, we will walk through the creation of a new Xamarin.iOS application.</p>
+<ide name="vs">
+<ol>
+<li>Launch <strong>Visual Studio</strong>.</li>
+<li>Start the project creation wizard through the <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project...</strong> menu option.</li>
+<li>Select the <strong>iOS App (Xamarin)</strong> template from the <strong>Visual C#</strong> &gt; <strong>iPhone &amp; iPad</strong> section.</li>
+</ol>
+<blockquote>
+During the project creation process, you may be prompted to connect to a Xamarin Build Host. For more information, see the <a href="https://developer.xamarin.com/guides/ios/getting_started/installation/windows/connecting-to-mac/" target="_blank">Connecting to the Mac</a>.
+</blockquote>
+<figure class="figure">
+<img src="./images/ex1-new-project-windows.png" alt="Selecting the iOS project template in Visual Studio." style="max-height: 500px;" title="Select the iOS App template" />
+<figcaption class="figure-caption">Select the iOS App template</figcaption>
+</figure>
+</ide>
+<ide name="xs">
+<ol>
+<li>Open <strong>Visual Studio for Mac</strong>.</li>
+<li>Start the project creation wizard through the <strong>File</strong> &gt; <strong>New Solution...</strong> menu option.</li>
+<li>Select the <strong>Single View App</strong> template under the <strong>iOS</strong> &gt; <strong>App</strong> section.</li>
+<li>Click the <strong>Next</strong> button on the lower right to continue.</li>
+</ol>
+</ide>
+
+<hr>
+<h2>Select iOS template</h2>
+<ide name="vs">
+<ol>
+<li>Select the <strong>Single View App</strong> template.</li>
+<li>Leave the <strong>Device Support</strong> as <strong>Universal</strong> to support both iPads and iPhone devices.</li>
+<li>Pick your preferred <strong>Minimum iOS Version</strong> or leave it at the newest version. (This exercise won't involve any iOS features that should limit backwards-compatibility.)</li>
+<li>Click <strong>OK</strong> to create the project.</li>
+</ol>
+<figure class="figure">
+<img src="./images/ex1-new-project-configure-windows.png" alt="Configuring the template and support options for the iOS project." style="max-height: 500px;" title="Configure the app project settings" />
+<figcaption class="figure-caption">Configure the app project settings</figcaption>
+</figure>
+</ide>
+<ide name="xs">
+<ol>
+<li>Name the project <strong>TipCalculator</strong> as the app name.</li>
+<li>If it isn't already filled in, provide an <strong>Organization Identifier</strong> in reverse-DNS notation, such as &quot;<strong>com.yourcompany</strong>&quot;. (Your app's name will be appended to the end of this identifier to uniquely represent your application to Apple when you publish the application.)</li>
+<li>Leave the <strong>Devices</strong> selections checked to support both iPads and iPhone devices.</li>
+<li>Pick your preferred <strong>Target</strong> iOS version or leave it at the newest version. (This exercise won't involve any iOS features that should limit backwards-compatibility.)</li>
+<li>Click <strong>Next</strong> to move to the next page.</li>
+<li>Leave the configuration settings on this screen as their defaults and click <strong>Create</strong> to create the project.</li>
+</ol>
+<figure class="figure">
+<img src="./images/iPhoneApp.png" alt="image" />
+</figure>
+</ide>
+
+<hr>
+<h2>View the solution</h2>
+<p>Visual Studio will create and load a new solution with a single iOS project.</p>
+<ide name="vs">
+<img src="./images/ex1-project-created-windows.png" alt="List of files and nodes in the Visual Studio Solution Explorer after creating initial iOS project." style="max-height: 500px;" title="Initial iOS app" />
+</ide>
+<ide name="xs">
+<img src="./images/AppDelegate.png" alt="image" />
+</ide>
+
+<hr>
+<h2>Select a simulator</h2>
+<p>Next, we'll select our deployment target for our new iOS application. We'll use the iOS simulator.</p>
+<ide name="vs">
+<blockquote class="info-quote">You'll need to be connected to your Mac Build Host for this step.
+</blockquote>
+<ol>
+<li>Choose <strong>iPhoneSimulator</strong> from the <strong>Solution Platforms</strong> dropdown on the Visual Studio toolbar.</li>
+</ol>
+<figure class="figure">
+<img src="images/ex1-build-bar-windows.png" alt="image" />
+</figure>
+<p>With <strong>iPhoneSimulator</strong> selected, you can now choose from the avaliable simulators installed on the Mac. The avaliable devices and versions may change when Xcode is updated on the Mac.</p>
+<ol start="2">
+<li>Select any <strong>iPhone</strong> simulator.</li>
+</ol>
+<figure class="figure">
+<img src="./images/ex1-device-list-windows.png" alt="Visual Studio toolbar list of iOS simulators available on the macOS build host." style="max-height: 500px;" title="List of available iOS simulators" />
+<figcaption class="figure-caption">List of available iOS simulators</figcaption>
+</figure>
+</ide>
+<ide name="xs">
+<ol>
+<li>Select one of the iPhone simulators from the deployment target drop-down menu on the toolbar:</li>
+</ol>
+<figure class="figure">
+<img src="images/build-bar.png" alt="image" />
+</figure>
+<figure class="figure">
+<img src="images/select-device.png" alt="image" />
+</figure>
+</ide>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-warning" type="button" data-toggle="collapse" data-toggle-show-text="I don&#39;t see all these simulator versions" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#Tb4f7cda634c34e5aabcc30fa4b0f44ed">I don't see all these simulator versions</button>
+<div class="collapse" id="Tb4f7cda634c34e5aabcc30fa4b0f44ed">
+<div class="card card-block">
+<p>
+<ide name="vs">
+The simulator variations are created and installed through Xcode on your macOS build host. Visual Studio will read the configuration and display what's available from the build host you have selected. If you don't see the simulator image you are looking for, you can create it through Xcode.
+</ide>
+<p>On your macOS machine, open Xcode, and use the <strong>Preferences</strong> &gt; <strong>Downloads</strong> &gt; <strong>Components</strong> dialog. This will list iOS versions you can download and install onto your Mac.</p>
+<figure class="figure">
+<img src="images/xcode-new-sims.png" alt="image" />
+</figure>
+<p>To create new simulator styles, use <strong>Window</strong> &gt; <strong>Devices</strong> to open the device list dialog:</p>
+<figure class="figure">
+<img src="images/lab3-xcode-sim-list.PNG" alt="image" />
+</figure>
+<p>You will likely need to restart Visual Studio for Mac to see changes in the simulator list.</p>
+</p>
+</div>
+</div>
+</p>
+
+<hr>
+<h2>Compile the application</h2>
+<p>Next, compile and deploy the application to the iOS Simulator.</p>
+<ide name="vs">
+<p>Start the application by clicking the <strong>Play</strong> button in the toolbar; this will build and launch the application on the simulator. You can also build from the <strong>Build</strong> menu.</p>
+<div>
+</div>
+<figure class="figure">
+<img src="images/vs-play-button.png" alt="image" />
+</figure>
+</ide>
+<ide name="xs">
+<p>Click the <strong>Play</strong> button in the toolbar to build and launch the application in the simulator. You can also build from the Build menu or, as mentioned in the discussion, use the <strong>⌘+B</strong> accelerator key (look at the menu drop-down to see the accelerator keys).</p>
+<div>
+</div>
+<figure class="figure">
+<img src="images/play-button.png" alt="image" />
+</figure>
+</ide>
+
+<hr>
+<h2>Run the application</h2>
+<ide name="vs">
+Remember, the simulator is hosted on your Mac Build Host. It will appear and deploy on your <strong>Mac</strong>.
+Switch to your Mac Build Host. The iOS simulator should launch on your Mac and run your new application. It should briefly display a launch screen which was added to your project by the template and then switch to an empty screen which we will be changing shortly.
+You can also use the <strong>Remoted iOS Simulator</strong> on your Windows 10 development PC. This allows you to visualize and interact with the iOS simulator directly from Windows. For more information, please visit the <a href="https://docs.microsoft.com/en-us/xamarin/tools/ios-simulator" target="_blank">Remoted iOS Simulator documentation</a>.
+</ide>
+<ide name="xs">
+<p>The iOS simulator should launch on your Mac and then run your new application. It should display an empty screen which we will change shortly.</p>
+<blockquote>
+Quick Tip: If you want to launch the iOS simulator independent of Visual Studio for Mac, try adding Xcode to your Dock. Then you can right-click on the icon and select <strong>Open Developer Tool</strong> &gt; <strong>iOS Simulator</strong> to quickly launch the simulator.
+</blockquote>
+</ide>
+<div>
+</div>
+<figure class="figure">
+<img src="images/lab3-final2.png" alt="blank iOS application" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<strong>Congratulations!</strong> You have created a new iOS application using the <strong>Single View App</strong> template.
+<p>You can view the completed solution in the <strong>Exercise 1 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

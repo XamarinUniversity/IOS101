@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 4: Add logic to your Tip Calculator</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>IOS101 Intro to Xamarin.iOS</header>
+
+    <section id="main">
+        <h2>Exercise 4: Add logic to your Tip Calculator</h2>
+<p>In this exercise, we will add the business logic to our Tip Calculator app by handling the tap event on the button and calculating the tip amount. This logic is the Model for our application. </p>
+<figure class="figure">
+<img src="images/completedProject.png" alt="image" />
+</figure>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 3 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+<hr>
+<h2>Handle button taps</h2>
+<ol>
+<li>Open <strong>MyViewController.cs</strong>.</li>
+<li>At the bottom of your <code>ViewDidLoad</code> method, add an event handler for the <code>TouchUpInside</code> method on your <code>calcButton</code> field.</li>
+</ol>
+<blockquote>
+Since we are using fields local to <code>ViewDidLoad</code>, you will need to add an inline delegate handler using either an <a href="https://msdn.microsoft.com/en-us/library/0yw3tz5k.aspx" target="_blank">anonymous delegate</a>, or a <a href="https://msdn.microsoft.com/en-us/library/bb397687.aspx" target="_blank">lambda expression</a>. If you would prefer to use a <a href="https://msdn.microsoft.com/en-us/library/ms173172.aspx" target="_blank">traditional delegate method handler</a>, move the field definitions for your three controls to the class so you can access them from the separate method. The provided code below will use a lambda.
+</blockquote>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    ...
+
+    View.AddSubviews(new UIView[] { totalAmount, calcButton, resultLabel });
+
+    <mark>calcButton.TouchUpInside += (s, e) =&gt; {</mark>
+    <mark>};</mark>
+}
+</code></pre>
+
+
+<hr>
+<h2>Add calculator logic</h2>
+<ol>
+<li>In your method handler, retrieve the current value of the <code>totalAmount</code> field using the <code>Text</code> property.</li>
+<li>Convert the <code>string</code> value into a double using <code>Double.TryParse</code>.</li>
+<li>Multiply the result by 0.2 to get 20% of the total. </li>
+<li>Finally, store the resulting text into the <code>resultLabel</code> field by setting the <code>Text</code> property. Format it using <code>string.Format</code> so it matches the default text we set earlier.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    ...
+    View.AddSubviews(new UIView[] { totalAmount, calcButton, resultLabel });
+
+    <mark>calcButton.TouchUpInside += (s, e) =&gt; {</mark>
+        <mark>double value = 0;</mark>
+        <mark>Double.TryParse(totalAmount.Text, out value);</mark>
+        <mark>resultLabel.Text = string.Format(&quot;Tip is {0:C}&quot;, value * 0.2);</mark>
+    };
+}
+</code></pre>
+
+
+<hr>
+<h2>Dismiss the keyboard</h2>
+<ol>
+<li>In the <code>calcButton</code> touch event handler, call the <code>ResignFirstResponder</code> method on <code>totalAmount</code> to dismiss the keyboard when the button is pressed.</li>
+</ol>
+<pre class="prettyprint-collapse"><code> calcButton.TouchUpInside += (s, e) =&gt; {
+    ...
+    totalAmount.ResignFirstResponder();
+};
+</code></pre>
+
+
+<hr>
+<h2>Build the application</h2>
+<ol>
+<li>Build and run the application.</li>
+<li>Enter a total amount and tap the &quot;Calculate&quot; button. It should display a 20% tip amount.</li>
+</ol>
+<figure class="figure">
+<img src="images/completedProject.png" alt="image" />
+</figure>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have added behavior to the Tip Calculator controls. You are now officially an iOS developer! :)</p>
+<p>You can view the completed solution in the <strong>Exercise 4 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/IOS101/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>
